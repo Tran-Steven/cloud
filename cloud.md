@@ -306,4 +306,196 @@ Cons
 
 
 
+### Two level scheduler
+
+1) application-level scheduler
+2) resource coordinator
+
+* "resource coordinator" does dynamic resource partitioning
+* available resources wil be offered to application schedulers for job execution
+Applications lock resources by accepting offer
+ - Pessimisitic concurrency control
+
+*  No global cluster state available
+
+PROS
+- Dynamic resource partitioning
+- high resource utilization
+
+CONS
+- Applciation schedulers lose "omniscience"
+- app schedules doesn't know who uses which resources
+- select offer or reject offer
+- Resource coordinator becomes the bottleneck
+
+Benefits
+1. frameworks are independent and can support application specific shceduling requirements
+2. kept simple to support future frameworks
+
+ Resource Isolation
+* isolation between executors on the same node(slave)
+* Support resources for isolation
+
+### Shared-State scheduler
+* Application schedulers have replicas of cluster state
+
+* optimistically concurrent transaction
+
+Disadvantages:
+
+- app schedulers often have stale information
+- performance degradation under high contention
+
+
+
+### Max-min fairness
+
+Maximizing the minimum shares
+
+* Share guarantee
+
+* why is it good?
+- users have no benefit of asking for more than they need
+    * resources are always limited
+- there is no reason to lie
+
+** max-min fairness is widely used in single resource allocation **
+
+* challenges
+When multiple heterogenous resources need to be scheudled together 
+
+### Dominant Resource Fairness
+
+Allocates resources in a cluster environemtn by providing fairness to tasks/jobs based on their dominant resource requirements
+
+
+# NoSQL
+
+* Focused on Scalability
+* No ACID, but BASE
+
+horizontal scaling is very difficult to support ACID
+
+Consistency becomes a big challenge
+
+DBMS is inflexible
+
+* often called partioning, fragmentation
+* horziontal data distrubition over nodes
+
+## BASE
+* B asically A vailable
+
+* Soft-state
+    - state of the system may change over time wihtout input
+
+* Eventual Consistency
+    - the system will eventually become consistent
+    all replicas will gradually become consistent int he absence of updates
+
+    when no updates occur for a certain period of time, eventually all updates will propagate through the system and all the nodes will be consistent
+
+    MongoDB Characteristics
+    - Sharding (horizontal Scaling)
+        - Shard
+            disjoint part of documents in a collection
+
+
+
+## ACID (FOR DBMS)
+- Atomicity
+- Consistency
+- Isolation
+- Durability
+
+## Characteristics
+* Scalability
+    - Horizontal Scalability
+* Availability & eventual consistencity
+    - doesn't support ACID 
+    - CAP and BASE
+* Replication models
+    - fault tolerance
+
+* Sharding of files
+    - Horizontal partitioning
+    - partioning data across different nodes
+
+* Not requring schema
+    - non-relational
+* no delcarative query language
+    - No SQL support
+
+## CAP Theorem
+Three properties in distributed systems (when sharing data)
+1. Consistency
+    - all replicas have the same copy
+2. Availability
+    - Reads and writes always succeed (with cluster crash)
+3. Partition-tolerance
+    - the system continues to operate in the presence of network partition
+
+Implication: goal is to guarantee at most 2 of three properties
+
+large distrubuted systems will "partition" at some point
+
+traditional DBMS prefers Consistency over Availability
+general distributed systems (like noSQL) prefer availability over Consistency
+
+
+### Two consistency models
+
+1. Strong Consistency?
+    - ACID
+2. Weak consistency?
+    - BASE
+
+# Stream Processing
+
+## What is real-time
+- really fast computation
+- computation with a deadline
+
+### hard real-time
+- missing deadline can result in system failure
+- like.. nuclear reactors, medical applications, military applications
+
+### soft real-time
+
+- can miss some deadlines
+- miss deadlines can result in degradation of system's QoS
+
+# What is Streaming data?
+## Unbounded
+    - continuous, infinite
+## Push Model
+    - data generator is the key - source is important
+    - Publisher/subsfriber model - 4 key components, pros/cons?
+
+1. Publishers
+2. Subscribers
+3.  Msg Broker
+4.  Topics
+
+Pros:
+* Simplicity/flexibility
+* Scalability
+* net efficiency
+
+Cons:
+* Simplicity/flexbility
+* inherent limitation as broker model
+
+# Batch vs Streaming
+
+<-------------------
+high throughput(Batch)
+
+
+--------------------->
+Low latency (streaming)
+## Concept of time
+
+## Streaming data examples
+
 
